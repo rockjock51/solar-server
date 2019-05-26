@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Header correctly 1`] = `
+<div>
+  <WithStyles(ForwardRef(AppBar))
+    color="default"
+    position="static"
+  >
+    <WithStyles(ForwardRef(Toolbar))>
+      <WithStyles(ForwardRef(IconButton))
+        aria-label="Open drawer"
+        className="makeStyles-menuButton-4"
+        color="inherit"
+        edge="start"
+        onClick={[Function]}
+      >
+        <[object Object] />
+      </WithStyles(ForwardRef(IconButton))>
+      <WithStyles(ForwardRef(Typography))
+        color="inherit"
+        variant="h6"
+      >
+        Solar Server
+      </WithStyles(ForwardRef(Typography))>
+    </WithStyles(ForwardRef(Toolbar))>
+  </WithStyles(ForwardRef(AppBar))>
+  <WithStyles(ForwardRef(Drawer))
+    anchor="left"
+    className="makeStyles-drawer-6"
+    classes={
+      Object {
+        "paper": "makeStyles-drawerPaper-7",
+      }
+    }
+    open={false}
+    variant="persistent"
+  >
+    <div
+      className="makeStyles-drawerHeader-8"
+    >
+      <WithStyles(ForwardRef(IconButton))
+        onClick={[Function]}
+      >
+        <[object Object] />
+      </WithStyles(ForwardRef(IconButton))>
+    </div>
+    <WithStyles(ForwardRef(Divider)) />
+    <WithStyles(ForwardRef(List))>
+      <WithStyles(ForwardRef(ListItem))
+        button={true}
+        key="Inbox"
+      >
+        <WithStyles(ForwardRef(ListItemIcon))>
+          <[object Object] />
+        </WithStyles(ForwardRef(ListItemIcon))>
+        <WithStyles(ForwardRef(ListItemText))
+          primary="Inbox"
+        />
+      </WithStyles(ForwardRef(ListItem))>
+      <WithStyles(ForwardRef(ListItem))
+        button={true}
+        key="Starred"
+      >
+        <WithStyles(ForwardRef(ListItemIcon))>
+          <[object Object] />
+        </WithStyles(ForwardRef(ListItemIcon))>
+        <WithStyles(ForwardRef(ListItemText))
+          primary="Starred"
+        />
+      </WithStyles(ForwardRef(ListItem))>
+      <WithStyles(ForwardRef(ListItem))
+        button={true}
+        key="Send email"
+      >
+        <WithStyles(ForwardRef(ListItemIcon))>
+          <[object Object] />
+        </WithStyles(ForwardRef(ListItemIcon))>
+        <WithStyles(ForwardRef(ListItemText))
+          primary="Send email"
+        />
+      </WithStyles(ForwardRef(ListItem))>
+      <WithStyles(ForwardRef(ListItem))
+        button={true}
+        key="Drafts"
+      >
+        <WithStyles(ForwardRef(ListItemIcon))>
+          <[object Object] />
+        </WithStyles(ForwardRef(ListItemIcon))>
+        <WithStyles(ForwardRef(ListItemText))
+          primary="Drafts"
+        />
+      </WithStyles(ForwardRef(ListItem))>
+    </WithStyles(ForwardRef(List))>
+    <WithStyles(ForwardRef(Divider)) />
+    <WithStyles(ForwardRef(List))>
+      <WithStyles(ForwardRef(ListItem))
+        button={true}
+        key="All mail"
+      >
+        <WithStyles(ForwardRef(ListItemIcon))>
+          <[object Object] />
+        </WithStyles(ForwardRef(ListItemIcon))>
+        <WithStyles(ForwardRef(ListItemText))
+          primary="All mail"
+        />
+      </WithStyles(ForwardRef(ListItem))>
+      <WithStyles(ForwardRef(ListItem))
+        button={true}
+        key="Trash"
+      >
+        <WithStyles(ForwardRef(ListItemIcon))>
+          <[object Object] />
+        </WithStyles(ForwardRef(ListItemIcon))>
+        <WithStyles(ForwardRef(ListItemText))
+          primary="Trash"
+        />
+      </WithStyles(ForwardRef(ListItem))>
+      <WithStyles(ForwardRef(ListItem))
+        button={true}
+        key="Spam"
+      >
+        <WithStyles(ForwardRef(ListItemIcon))>
+          <[object Object] />
+        </WithStyles(ForwardRef(ListItemIcon))>
+        <WithStyles(ForwardRef(ListItemText))
+          primary="Spam"
+        />
+      </WithStyles(ForwardRef(ListItem))>
+    </WithStyles(ForwardRef(List))>
+  </WithStyles(ForwardRef(Drawer))>
+</div>
+`;
