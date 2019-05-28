@@ -5,7 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import IconButton from "@material-ui/core/IconButton";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
@@ -89,6 +89,14 @@ function Header() {
     setOpen(false);
   }
 
+  function handleDrawerSwipeOpen() {
+    setOpen(true);
+  }
+
+  function handleDrawerSwipeClose() {
+    setOpen(false);
+  }
+
   return (
     <div>
       <AppBar position="static" color="default">
@@ -107,11 +115,12 @@ function Header() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
+      <SwipeableDrawer
         className={classes.drawer}
-        variant="persistent"
         anchor="left"
         open={open}
+        onOpen={handleDrawerSwipeOpen}
+        onClose={handleDrawerSwipeClose}
         classes={{
           paper: classes.drawerPaper
         }}
@@ -147,7 +156,7 @@ function Header() {
             </ListItem>
           ))}
         </List>
-      </Drawer>
+      </SwipeableDrawer>
     </div>
   );
 }

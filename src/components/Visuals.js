@@ -1,17 +1,28 @@
 import React from "react";
 
-import { Container, Paper, Grid } from "@material-ui/core";
+import {
+  Container,
+  Paper,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CardActions
+} from "@material-ui/core";
+import Slider from "@material-ui/lab/Slider";
 
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 import "../css/Visuals.css";
+import "typeface-roboto";
 
 class Visuals extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      value: 1,
       options: {
         chart: {
           zoomType: "x"
@@ -107,6 +118,10 @@ class Visuals extends React.Component {
     };
   }
 
+  handleSliderChange(event, value) {
+    this.setState({ value: value });
+  }
+
   handleDataRefresh() {
     fetch("http://solar-cert:3050/api/stats/watts")
       .then(response => response.json())
@@ -124,6 +139,12 @@ class Visuals extends React.Component {
   }
 
   componentDidMount() {
+    Highcharts.setOptions({
+      time: {
+        timezone: "America/Chicago",
+        useUTC: false
+      }
+    });
     this.handleDataRefresh();
     setInterval(() => {
       this.handleDataRefresh();
@@ -133,32 +154,67 @@ class Visuals extends React.Component {
   render() {
     return (
       <div>
-        <Container maxwidth="false" height={300} className={"grid"}>
+        <Container maxWidth={false} className={"grid"}>
           <Grid container spacing={1}>
-            <Grid item lg={4}>
-              <Paper style={{ height: "30em" }}>
+            <Grid item lg={4} xs={12}>
+              <Paper style={{ height: "30em", maxWidth: "90vw" }}>
                 <HighchartsReact
                   highcharts={Highcharts}
                   options={this.state.options}
                 />
               </Paper>
             </Grid>
-            <Grid item lg={4}>
-              <Paper style={{ height: "30em" }}>
+            <Grid item lg={4} xs={12}>
+              <Paper style={{ height: "30em", maxWidth: "90vw" }}>
                 <HighchartsReact
                   highcharts={Highcharts}
                   options={this.state.options}
                 />
               </Paper>
             </Grid>
-            <Grid item lg={4}>
-              <Paper style={{ height: "30em" }}>
+            <Grid item lg={4} xs={12}>
+              <Paper style={{ height: "30em", maxWidth: "90vw" }}>
                 <HighchartsReact
                   highcharts={Highcharts}
                   options={this.state.options}
                 />
               </Paper>
             </Grid>
+            <Grid item lg={4} xs={12} />
+            <Grid item lg={4} xs={12}>
+              <Card className={"root"}>
+                <CardContent>
+                  <Typography
+                    variant={"h6"}
+                    color="textSecondary"
+                    gutterBottom
+                    align="center"
+                  >
+                    # of Days to Display in Graphs.
+                  </Typography>
+                  <Slider
+                    className={"slider"}
+                    value={this.state.value}
+                    min={1}
+                    max={7}
+                    step={1}
+                    onChange={this.handleSliderChange.bind(this)}
+                  />
+                </CardContent>
+                <CardActions>
+                  <Typography
+                    variant="subtitle"
+                    display="block"
+                    color="textSecondary"
+                    gutterBottom
+                    align="center"
+                  >
+                    {this.state.value}
+                  </Typography>
+                </CardActions>
+              </Card>
+            </Grid>
+            <Grid item lg={4} xs={12} />
           </Grid>
         </Container>
       </div>
