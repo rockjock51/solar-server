@@ -14,6 +14,14 @@ import Slider from "@material-ui/lab/Slider";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
+import { wattsGraphOptions } from "../options/wattsGraph";
+import { socGraphOptions } from "../options/socGraph";
+import { ampGraphOptions } from "../options/ampGraph";
+import { batteryVoltsGraphOptions } from "../options/batteryVoltsGraph";
+import { solarWattsGraphOptions } from "../options/solarWattsGraph";
+import { invAdcGraphOptions } from "../options/invAdcGraph";
+import { outbackPvVoltsGraphOptions } from "../options/outbackPvVolts";
+
 import "../css/Visuals.css";
 import "typeface-roboto";
 
@@ -23,98 +31,13 @@ class Visuals extends React.Component {
 
     this.state = {
       value: 1,
-      options: {
-        chart: {
-          zoomType: "x"
-        },
-        title: {
-          text: "Watts"
-        },
-        tooltip: {
-          formatter: function() {
-            return (
-              "Date: " +
-              Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
-              "<br />Volts: " +
-              this.point.Volts +
-              "<br />Amps: " +
-              this.point.Amps
-            );
-          }
-        },
-        subtitle: {
-          text:
-            document.ontouchstart === undefined
-              ? "Click and drag in the plot area to zoom in"
-              : "Pinch the chart to zoom in"
-        },
-        xAxis: {
-          type: "datetime"
-        },
-        yAxis: {
-          title: {
-            text: "Watts"
-          }
-        },
-        legend: {
-          enabled: false
-        },
-        plotOptions: {
-          area: {
-            fillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1
-              },
-              stops: [
-                [0, Highcharts.getOptions().colors[0]],
-                [
-                  1,
-                  Highcharts.Color(Highcharts.getOptions().colors[0])
-                    .setOpacity(0)
-                    .get("rgba")
-                ]
-              ]
-            },
-            marker: {
-              radius: 2
-            },
-            lineWidth: 1,
-            states: {
-              hover: {
-                lineWidth: 1
-              }
-            },
-            threshold: 0,
-            negativeColor: "#800000",
-            negativeFillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1
-              },
-              stops: [[0, "#FFFFFF"], [1, "#F08080"]]
-            }
-          }
-        },
-        series: [
-          {
-            connectNulls: true,
-            turboThreshold: 0,
-            parseDate: function(val) {
-              console.log(val);
-              console.log("Date", Date.parse(val));
-              return Date.parse(val);
-            },
-            type: "area",
-            name: "Watts",
-            data: null
-          }
-        ]
-      }
+      wattsOptions: wattsGraphOptions,
+      socOptions: socGraphOptions,
+      ampOptions: ampGraphOptions,
+      batteryVoltsOptions: batteryVoltsGraphOptions,
+      solarWattsOptions: solarWattsGraphOptions,
+      invAdcOptions: invAdcGraphOptions,
+      outbackPvVoltsOptions: outbackPvVoltsGraphOptions
     };
   }
 
@@ -123,11 +46,102 @@ class Visuals extends React.Component {
   }
 
   handleDataRefresh() {
+    // Get Watts Graph Data
     fetch("http://solar-cert:3050/api/stats/watts")
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
-          options: {
+          wattsOptions: {
+            ...prevState.options,
+            series: {
+              ...prevState.series,
+              data: newData
+            }
+          }
+        }));
+      });
+
+    // Get SoC Graph Data
+    fetch("http://solar-cert:3050/api/stats/soc")
+      .then(response => response.json())
+      .then(newData => {
+        this.setState(prevState => ({
+          socOptions: {
+            ...prevState.options,
+            series: {
+              ...prevState.series,
+              data: newData
+            }
+          }
+        }));
+      });
+
+    // Get Amp Graph Data
+    fetch("http://solar-cert:3050/api/stats/amps")
+      .then(response => response.json())
+      .then(newData => {
+        this.setState(prevState => ({
+          ampOptions: {
+            ...prevState.options,
+            series: {
+              ...prevState.series,
+              data: newData
+            }
+          }
+        }));
+      });
+
+    // Get Battery Volts Graph Data
+    fetch("http://solar-cert:3050/api/stats/batteryvolts")
+      .then(response => response.json())
+      .then(newData => {
+        this.setState(prevState => ({
+          batteryVoltsOptions: {
+            ...prevState.options,
+            series: {
+              ...prevState.series,
+              data: newData
+            }
+          }
+        }));
+      });
+
+    // Get Solar Watts Graph Data
+    fetch("http://solar-cert:3050/api/stats/solarwatts")
+      .then(response => response.json())
+      .then(newData => {
+        this.setState(prevState => ({
+          solarWattsOptions: {
+            ...prevState.options,
+            series: {
+              ...prevState.series,
+              data: newData
+            }
+          }
+        }));
+      });
+
+    // Get Inverter Amps DC Graph Data
+    fetch("http://solar-cert:3050/api/stats/INV_adc")
+      .then(response => response.json())
+      .then(newData => {
+        this.setState(prevState => ({
+          invAdcOptions: {
+            ...prevState.options,
+            series: {
+              ...prevState.series,
+              data: newData
+            }
+          }
+        }));
+      });
+
+    // Get Outback PV Volts Graph Data
+    fetch("http://solar-cert:3050/api/stats/outback_pv_volts")
+      .then(response => response.json())
+      .then(newData => {
+        this.setState(prevState => ({
+          outbackPvVoltsOptions: {
             ...prevState.options,
             series: {
               ...prevState.series,
@@ -157,29 +171,63 @@ class Visuals extends React.Component {
         <Container maxWidth={false} className={"grid"}>
           <Grid container spacing={1}>
             <Grid item lg={4} xs={12}>
-              <Paper style={{ height: "30em", maxWidth: "90vw" }}>
+              <Paper style={{ height: "30em" }}>
                 <HighchartsReact
                   highcharts={Highcharts}
-                  options={this.state.options}
+                  options={this.state.wattsOptions}
                 />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
-              <Paper style={{ height: "30em", maxWidth: "90vw" }}>
+              <Paper style={{ height: "30em" }}>
                 <HighchartsReact
                   highcharts={Highcharts}
-                  options={this.state.options}
+                  options={this.state.socOptions}
                 />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
-              <Paper style={{ height: "30em", maxWidth: "90vw" }}>
+              <Paper style={{ height: "30em" }}>
                 <HighchartsReact
                   highcharts={Highcharts}
-                  options={this.state.options}
+                  options={this.state.ampOptions}
                 />
               </Paper>
             </Grid>
+            <Grid item lg={4} xs={12}>
+              <Paper style={{ height: "30em" }}>
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={this.state.batteryVoltsOptions}
+                />
+              </Paper>
+            </Grid>
+            <Grid item lg={4} xs={12}>
+              <Paper style={{ height: "30em" }}>
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={this.state.invAdcOptions}
+                />
+              </Paper>
+            </Grid>
+            <Grid item lg={4} xs={12}>
+              <Paper style={{ height: "30em" }}>
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={this.state.solarWattsOptions}
+                />
+              </Paper>
+            </Grid>
+            <Grid item lg={4} xs={12} />
+            <Grid item lg={4} xs={12}>
+              <Paper style={{ height: "30em" }}>
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={this.state.outbackPvVoltsOptions}
+                />
+              </Paper>
+            </Grid>
+            <Grid item lg={4} xs={12} />
             <Grid item lg={4} xs={12} />
             <Grid item lg={4} xs={12}>
               <Card className={"root"}>
@@ -203,7 +251,7 @@ class Visuals extends React.Component {
                 </CardContent>
                 <CardActions>
                   <Typography
-                    variant="subtitle"
+                    variant="h6"
                     display="block"
                     color="textSecondary"
                     gutterBottom
