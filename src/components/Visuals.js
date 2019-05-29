@@ -47,7 +47,7 @@ class Visuals extends React.Component {
 
   handleDataRefresh() {
     // Get Watts Graph Data
-    fetch("http://solar-cert:3050/api/stats/watts")
+    fetch("http://rockjock.io:3050/api/stats/watts", {mode: "no-cors"})
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -62,7 +62,7 @@ class Visuals extends React.Component {
       });
 
     // Get SoC Graph Data
-    fetch("http://solar-cert:3050/api/stats/soc")
+    fetch("http://rockjock.io:3050/api/stats/soc", {mode: "no-cors"})
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -77,7 +77,7 @@ class Visuals extends React.Component {
       });
 
     // Get Amp Graph Data
-    fetch("http://solar-cert:3050/api/stats/amps")
+    fetch("http://rockjock.io:3050/api/stats/amps", {mode: "no-cors"})
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -92,7 +92,7 @@ class Visuals extends React.Component {
       });
 
     // Get Battery Volts Graph Data
-    fetch("http://solar-cert:3050/api/stats/batteryvolts")
+    fetch("http://rockjock.io:3050/api/stats/batteryvolts", {mode: "no-cors"})
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -107,7 +107,7 @@ class Visuals extends React.Component {
       });
 
     // Get Solar Watts Graph Data
-    fetch("http://solar-cert:3050/api/stats/solarwatts")
+    fetch("http://rockjock.io:3050/api/stats/solarwatts", {mode: "no-cors"})
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -122,7 +122,7 @@ class Visuals extends React.Component {
       });
 
     // Get Inverter Amps DC Graph Data
-    fetch("http://solar-cert:3050/api/stats/INV_adc")
+    fetch("http://rockjock.io:3050/api/stats/INV_adc", {mode: "no-cors"})
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -137,7 +137,7 @@ class Visuals extends React.Component {
       });
 
     // Get Outback PV Volts Graph Data
-    fetch("http://solar-cert:3050/api/stats/outback_pv_volts")
+    fetch("http://rockjock.io:3050/api/stats/outback_pv_volts", {mode: "no-cors"})
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
