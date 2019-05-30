@@ -4,11 +4,11 @@ import HighchartsReact from "highcharts-react-official";
 
 import { ampGraphOptions } from "../../options/ampGraph";
 
-let interval;
 class Amps extends React.Component {
   constructor(props) {
     super(props);
     this.chart = React.createRef();
+    this.interval = null;
 
     this.state = {
       options: ampGraphOptions,
@@ -47,7 +47,7 @@ class Amps extends React.Component {
       }
     });
     this.handleDataRefresh();
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
   }
@@ -55,9 +55,9 @@ class Amps extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (!this.state.loading) {
       if (prevProps.daysHistory !== this.props.daysHistory) {
-        clearInterval(interval);
+        clearInterval(this.interval);
         this.handleDataRefresh();
-        interval = setInterval(() => {
+        this.interval = setInterval(() => {
           this.handleDataRefresh();
         }, 30000);
       }

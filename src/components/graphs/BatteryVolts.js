@@ -4,11 +4,11 @@ import HighchartsReact from "highcharts-react-official";
 
 import { batteryVoltsGraphOptions } from "../../options/batteryVoltsGraph";
 
-let interval;
 class BatteryVolts extends React.Component {
   constructor(props) {
     super(props);
     this.chart = React.createRef();
+    this.interval = null;
 
     this.state = {
       options: batteryVoltsGraphOptions,
@@ -48,7 +48,7 @@ class BatteryVolts extends React.Component {
       }
     });
     this.handleDataRefresh();
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
   }
@@ -56,9 +56,9 @@ class BatteryVolts extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (!this.state.loading) {
       if (prevProps.daysHistory !== this.props.daysHistory) {
-        clearInterval(interval);
+        clearInterval(this.interval);
         this.handleDataRefresh();
-        interval = setInterval(() => {
+        this.interval = setInterval(() => {
           this.handleDataRefresh();
         }, 30000);
       }

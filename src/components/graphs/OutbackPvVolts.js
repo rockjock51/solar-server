@@ -4,11 +4,11 @@ import HighchartsReact from "highcharts-react-official";
 
 import { outbackPvVoltsGraphOptions } from "../../options/outbackPvVolts";
 
-let interval;
 class OutbackPvVolts extends React.Component {
   constructor(props) {
     super(props);
     this.chart = React.createRef();
+    this.interval = null;
 
     this.state = {
       options: outbackPvVoltsGraphOptions,
@@ -48,7 +48,7 @@ class OutbackPvVolts extends React.Component {
       }
     });
     this.handleDataRefresh();
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
   }
@@ -56,7 +56,7 @@ class OutbackPvVolts extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (!this.state.loading) {
       if (prevProps.daysHistory !== this.props.daysHistory) {
-        clearInterval(interval);
+        clearInterval(this.interval);
         this.handleDataRefresh();
         this.interval = setInterval(() => {
           this.handleDataRefresh();

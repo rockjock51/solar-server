@@ -47,7 +47,7 @@ class SoC extends React.Component {
       }
     });
     this.handleDataRefresh();
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
   }
