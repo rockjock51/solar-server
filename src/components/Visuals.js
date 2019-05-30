@@ -14,12 +14,12 @@ import Slider from "@material-ui/lab/Slider";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
-import { wattsGraphOptions } from "../options/wattsGraph";
-import { socGraphOptions } from "../options/socGraph";
-import { ampGraphOptions } from "../options/ampGraph";
-import { batteryVoltsGraphOptions } from "../options/batteryVoltsGraph";
-import { solarWattsGraphOptions } from "../options/solarWattsGraph";
-import { invAdcGraphOptions } from "../options/invAdcGraph";
+import Amps from "./graphs/Amps";
+import BatteryVolts from "./graphs/BatteryVolts";
+import InvADC from "./graphs/InvADC";
+import SoC from "./graphs/SoC";
+import SolarWatts from "./graphs/SolarWatts";
+import Watts from "./graphs/Watts";
 import { outbackPvVoltsGraphOptions } from "../options/outbackPvVolts";
 
 import "../css/Visuals.css";
@@ -31,12 +31,6 @@ class Visuals extends React.Component {
 
     this.state = {
       value: 1,
-      wattsOptions: wattsGraphOptions,
-      socOptions: socGraphOptions,
-      ampOptions: ampGraphOptions,
-      batteryVoltsOptions: batteryVoltsGraphOptions,
-      solarWattsOptions: solarWattsGraphOptions,
-      invAdcOptions: invAdcGraphOptions,
       outbackPvVoltsOptions: outbackPvVoltsGraphOptions
     };
   }
@@ -46,96 +40,6 @@ class Visuals extends React.Component {
   }
 
   handleDataRefresh() {
-    // Get Watts Graph Data
-    fetch("http://rockjock.io:3050/api/stats/watts")
-      .then(response => response.json())
-      .then(newData => {
-        this.setState(prevState => ({
-          wattsOptions: {
-            ...prevState.options,
-            series: {
-              ...prevState.series,
-              data: newData
-            }
-          }
-        }));
-      });
-
-    // Get SoC Graph Data
-    fetch("http://rockjock.io:3050/api/stats/soc")
-      .then(response => response.json())
-      .then(newData => {
-        this.setState(prevState => ({
-          socOptions: {
-            ...prevState.options,
-            series: {
-              ...prevState.series,
-              data: newData
-            }
-          }
-        }));
-      });
-
-    // Get Amp Graph Data
-    fetch("http://rockjock.io:3050/api/stats/amps")
-      .then(response => response.json())
-      .then(newData => {
-        this.setState(prevState => ({
-          ampOptions: {
-            ...prevState.options,
-            series: {
-              ...prevState.series,
-              data: newData
-            }
-          }
-        }));
-      });
-
-    // Get Battery Volts Graph Data
-    fetch("http://rockjock.io:3050/api/stats/batteryvolts")
-      .then(response => response.json())
-      .then(newData => {
-        this.setState(prevState => ({
-          batteryVoltsOptions: {
-            ...prevState.options,
-            series: {
-              ...prevState.series,
-              data: newData
-            }
-          }
-        }));
-      });
-
-    // Get Solar Watts Graph Data
-    fetch("http://rockjock.io:3050/api/stats/solarwatts")
-      .then(response => response.json())
-      .then(newData => {
-        this.setState(prevState => ({
-          solarWattsOptions: {
-            ...prevState.options,
-            series: {
-              ...prevState.series,
-              data: newData
-            }
-          }
-        }));
-      });
-
-    // Get Inverter Amps DC Graph Data
-    fetch("http://rockjock.io:3050/api/stats/INV_adc")
-      .then(response => response.json())
-      .then(newData => {
-        this.setState(prevState => ({
-          invAdcOptions: {
-            ...prevState.options,
-            series: {
-              ...prevState.series,
-              data: newData
-            }
-          }
-        }));
-      });
-
     // Get Outback PV Volts Graph Data
     fetch("http://rockjock.io:3050/api/stats/outback_pv_volts")
       .then(response => response.json())
@@ -172,50 +76,32 @@ class Visuals extends React.Component {
           <Grid container spacing={1}>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={this.state.wattsOptions}
-                />
+                <Watts />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={this.state.socOptions}
-                />
+                <SoC />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={this.state.ampOptions}
-                />
+                <Amps />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={this.state.batteryVoltsOptions}
-                />
+                <BatteryVolts />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={this.state.invAdcOptions}
-                />
+                <InvADC />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={this.state.solarWattsOptions}
-                />
+                <SolarWatts />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12} />
