@@ -1,7 +1,15 @@
 import Highcharts from "highcharts";
+import HighchartsBoost from "highcharts/modules/boost";
+
+HighchartsBoost(Highcharts);
 
 export const outbackPvVoltsGraphOptions = {
+  boost: {
+    enabled: false,
+    seriesThreshold: 1
+  },
   chart: {
+    animation: false,
     zoomType: "x"
   },
   title: {
@@ -77,6 +85,9 @@ export const outbackPvVoltsGraphOptions = {
         },
         stops: [[0, "#FFFFFF"], [1, "#F08080"]]
       }
+    },
+    series: {
+      animation: false
     }
   },
 

@@ -4,17 +4,22 @@ import HighchartsReact from "highcharts-react-official";
 
 import { invAdcGraphOptions } from "../../options/invAdcGraph";
 
+let interval;
 class InvADC extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      options: invAdcGraphOptions
+      options: invAdcGraphOptions,
+      loading: true
     };
   }
 
   handleDataRefresh() {
-    fetch("http://rockjock.io:3050/api/stats/INV_adc")
+    this.setState({ loading: true });
+    const url =
+      "http://rockjock.io:3050/api/stats/INV_adc/" + this.props.daysHistory;
+    fetch(url)
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -26,7 +31,8 @@ class InvADC extends React.Component {
             }
           }
         }));
-      });
+      })
+      .then(() => this.setState({ loading: false }));
   }
   componentDidMount() {
     Highcharts.setOptions({
@@ -39,6 +45,18 @@ class InvADC extends React.Component {
     setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.loading) {
+      if (prevProps.daysHistory !== this.props.daysHistory) {
+        clearInterval(interval);
+        this.handleDataRefresh();
+        this.interval = setInterval(() => {
+          this.handleDataRefresh();
+        }, 30000);
+      }
+    }
   }
 
   render() {

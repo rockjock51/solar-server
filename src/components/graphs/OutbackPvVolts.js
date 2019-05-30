@@ -4,17 +4,23 @@ import HighchartsReact from "highcharts-react-official";
 
 import { outbackPvVoltsGraphOptions } from "../../options/outbackPvVolts";
 
+let interval;
 class OutbackPvVolts extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      options: outbackPvVoltsGraphOptions
+      options: outbackPvVoltsGraphOptions,
+      loading: true
     };
   }
 
   handleDataRefresh() {
-    fetch("http://rockjock.io:3050/api/stats/outback_pv_volts")
+    this.setState({ loading: true });
+    const url =
+      "http://rockjock.io:3050/api/stats/outback_pv_volts/" +
+      this.props.daysHistory;
+    fetch(url)
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -26,7 +32,8 @@ class OutbackPvVolts extends React.Component {
             }
           }
         }));
-      });
+      })
+      .then(() => this.setState({ loading: false }));
   }
   componentDidMount() {
     Highcharts.setOptions({
@@ -39,6 +46,18 @@ class OutbackPvVolts extends React.Component {
     setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.loading) {
+      if (prevProps.daysHistory !== this.props.daysHistory) {
+        clearInterval(interval);
+        this.handleDataRefresh();
+        this.interval = setInterval(() => {
+          this.handleDataRefresh();
+        }, 30000);
+      }
+    }
   }
 
   render() {

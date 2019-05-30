@@ -4,17 +4,22 @@ import HighchartsReact from "highcharts-react-official";
 
 import { solarWattsGraphOptions } from "../../options/solarWattsGraph";
 
+let interval;
 class SolarWatts extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      options: solarWattsGraphOptions
+      options: solarWattsGraphOptions,
+      loading: true
     };
   }
 
   handleDataRefresh() {
-    fetch("http://rockjock.io:3050/api/stats/solarwatts")
+    this.setState({ loading: true });
+    const url =
+      "http://rockjock.io:3050/api/stats/solarwatts/" + this.props.daysHistory;
+    fetch(url)
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -26,7 +31,8 @@ class SolarWatts extends React.Component {
             }
           }
         }));
-      });
+      })
+      .then(() => this.setState({ loading: false }));
   }
   componentDidMount() {
     Highcharts.setOptions({
@@ -36,9 +42,21 @@ class SolarWatts extends React.Component {
       }
     });
     this.handleDataRefresh();
-    setInterval(() => {
+    interval = setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.loading) {
+      if (prevProps.daysHistory !== this.props.daysHistory) {
+        clearInterval(interval);
+        this.handleDataRefresh();
+        interval = setInterval(() => {
+          this.handleDataRefresh();
+        }, 30000);
+      }
+    }
   }
 
   render() {

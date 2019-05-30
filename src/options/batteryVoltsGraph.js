@@ -1,6 +1,13 @@
 import Highcharts from "highcharts";
+import HighchartsBoost from "highcharts/modules/boost";
+
+HighchartsBoost(Highcharts);
 
 export const batteryVoltsGraphOptions = {
+  boost: {
+    enabled: false,
+    seriesThreshold: 1
+  },
   chart: {
     zoomType: "x"
   },
@@ -77,6 +84,9 @@ export const batteryVoltsGraphOptions = {
         },
         stops: [[0, "#FFFFFF"], [1, "#F08080"]]
       }
+    },
+    series: {
+      animation: false
     }
   },
 

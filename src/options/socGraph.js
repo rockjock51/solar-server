@@ -1,7 +1,15 @@
 import Highcharts from "highcharts";
+import HighchartsBoost from "highcharts/modules/boost";
+
+HighchartsBoost(Highcharts);
 
 export const socGraphOptions = {
+  boost: {
+    enabled: false,
+    seriesThreshold: 1
+  },
   chart: {
+    animation: false,
     zoomType: "x"
   },
   title: {
@@ -75,6 +83,9 @@ export const socGraphOptions = {
         },
         stops: [[0, Highcharts.getOptions().colors[0]], [1, "#F08080"]]
       }
+    },
+    series: {
+      animation: false
     }
   },
 

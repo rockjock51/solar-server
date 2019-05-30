@@ -4,17 +4,22 @@ import HighchartsReact from "highcharts-react-official";
 
 import { ampGraphOptions } from "../../options/ampGraph";
 
+let interval;
 class Amps extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      options: ampGraphOptions
+      options: ampGraphOptions,
+      loading: true
     };
   }
 
   handleDataRefresh() {
-    fetch("http://rockjock.io:3050/api/stats/amps")
+    this.setState({ loading: true });
+    const url =
+      "http://rockjock.io:3050/api/stats/amps/" + this.props.daysHistory;
+    fetch(url)
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
@@ -26,7 +31,8 @@ class Amps extends React.Component {
             }
           }
         }));
-      });
+      })
+      .then(() => this.setState({ loading: false }));
   }
   componentDidMount() {
     Highcharts.setOptions({
@@ -39,6 +45,18 @@ class Amps extends React.Component {
     setInterval(() => {
       this.handleDataRefresh();
     }, 30000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.loading) {
+      if (prevProps.daysHistory !== this.props.daysHistory) {
+        clearInterval(interval);
+        this.handleDataRefresh();
+        interval = setInterval(() => {
+          this.handleDataRefresh();
+        }, 30000);
+      }
+    }
   }
 
   render() {

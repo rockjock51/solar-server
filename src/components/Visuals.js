@@ -11,16 +11,13 @@ import {
 } from "@material-ui/core";
 import Slider from "@material-ui/lab/Slider";
 
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
-
 import Amps from "./graphs/Amps";
 import BatteryVolts from "./graphs/BatteryVolts";
 import InvADC from "./graphs/InvADC";
 import SoC from "./graphs/SoC";
 import SolarWatts from "./graphs/SolarWatts";
 import Watts from "./graphs/Watts";
-import { outbackPvVoltsGraphOptions } from "../options/outbackPvVolts";
+import OutbackPvVolts from "./graphs/OutbackPvVolts";
 
 import "../css/Visuals.css";
 import "typeface-roboto";
@@ -30,44 +27,15 @@ class Visuals extends React.Component {
     super(props);
 
     this.state = {
-      value: 1,
-      outbackPvVoltsOptions: outbackPvVoltsGraphOptions
+      daysHistory: 2
     };
   }
 
   handleSliderChange(event, value) {
-    this.setState({ value: value });
+    this.setState({ daysHistory: value });
   }
 
-  handleDataRefresh() {
-    // Get Outback PV Volts Graph Data
-    fetch("http://rockjock.io:3050/api/stats/outback_pv_volts")
-      .then(response => response.json())
-      .then(newData => {
-        this.setState(prevState => ({
-          outbackPvVoltsOptions: {
-            ...prevState.options,
-            series: {
-              ...prevState.series,
-              data: newData
-            }
-          }
-        }));
-      });
-  }
-
-  componentDidMount() {
-    Highcharts.setOptions({
-      time: {
-        timezone: "America/Chicago",
-        useUTC: false
-      }
-    });
-    this.handleDataRefresh();
-    setInterval(() => {
-      this.handleDataRefresh();
-    }, 30000);
-  }
+  componentDidMount() {}
 
   render() {
     return (
@@ -76,41 +44,38 @@ class Visuals extends React.Component {
           <Grid container spacing={1}>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <Watts />
+                <Watts daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <SoC />
+                <SoC daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <Amps />
+                <Amps daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <BatteryVolts />
+                <BatteryVolts daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <InvADC />
+                <InvADC daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <SolarWatts />
+                <SolarWatts daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12} />
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={this.state.outbackPvVoltsOptions}
-                />
+                <OutbackPvVolts daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12} />
@@ -128,7 +93,7 @@ class Visuals extends React.Component {
                   </Typography>
                   <Slider
                     className={"slider"}
-                    value={this.state.value}
+                    value={this.state.daysHistory}
                     min={1}
                     max={7}
                     step={1}
