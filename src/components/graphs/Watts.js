@@ -8,23 +8,25 @@ let interval;
 class Watts extends React.Component {
   constructor(props) {
     super(props);
+    this.chart = React.createRef();
 
     this.state = {
-      wattsOptions: wattsGraphOptions,
-      loading: true
+      options: wattsGraphOptions,
+      loading: false
     };
   }
 
   handleDataRefresh() {
     this.setState({ loading: true });
+    this.chart.current.chart.showLoading();
     const url =
       "http://rockjock.io:3050/api/stats/watts/" + this.props.daysHistory;
     fetch(url)
       .then(response => response.json())
       .then(newData => {
         this.setState(prevState => ({
-          wattsOptions: {
-            ...prevState.options,
+          options: {
+            ...wattsGraphOptions.options,
             series: {
               ...prevState.series,
               data: newData
@@ -32,7 +34,10 @@ class Watts extends React.Component {
           }
         }));
       })
-      .then(() => this.setState({ loading: false }));
+      .then(() => {
+        this.setState({ loading: false });
+        this.chart.current.chart.hideLoading();
+      });
   }
 
   componentDidMount() {
@@ -62,10 +67,14 @@ class Watts extends React.Component {
 
   render() {
     return (
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={this.state.wattsOptions}
-      />
+      <div>
+        <HighchartsReact
+          constructorType={"chart"}
+          highcharts={Highcharts}
+          options={this.state.options}
+          ref={this.chart}
+        />
+      </div>
     );
   }
 }

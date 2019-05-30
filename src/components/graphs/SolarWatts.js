@@ -8,6 +8,7 @@ let interval;
 class SolarWatts extends React.Component {
   constructor(props) {
     super(props);
+    this.chart = React.createRef();
 
     this.state = {
       options: solarWattsGraphOptions,
@@ -17,6 +18,7 @@ class SolarWatts extends React.Component {
 
   handleDataRefresh() {
     this.setState({ loading: true });
+    this.chart.current.chart.showLoading();
     const url =
       "http://rockjock.io:3050/api/stats/solarwatts/" + this.props.daysHistory;
     fetch(url)
@@ -32,7 +34,10 @@ class SolarWatts extends React.Component {
           }
         }));
       })
-      .then(() => this.setState({ loading: false }));
+      .then(() => {
+        this.setState({ loading: false });
+        this.chart.current.chart.hideLoading();
+      });
   }
   componentDidMount() {
     Highcharts.setOptions({
@@ -61,7 +66,12 @@ class SolarWatts extends React.Component {
 
   render() {
     return (
-      <HighchartsReact highcharts={Highcharts} options={this.state.options} />
+      <HighchartsReact
+        constructorType={"chart"}
+        highcharts={Highcharts}
+        options={this.state.options}
+        ref={this.chart}
+      />
     );
   }
 }

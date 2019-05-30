@@ -8,6 +8,7 @@ let interval;
 class InvADC extends React.Component {
   constructor(props) {
     super(props);
+    this.chart = React.createRef();
 
     this.state = {
       options: invAdcGraphOptions,
@@ -17,6 +18,7 @@ class InvADC extends React.Component {
 
   handleDataRefresh() {
     this.setState({ loading: true });
+    this.chart.current.chart.showLoading();
     const url =
       "http://rockjock.io:3050/api/stats/INV_adc/" + this.props.daysHistory;
     fetch(url)
@@ -32,7 +34,10 @@ class InvADC extends React.Component {
           }
         }));
       })
-      .then(() => this.setState({ loading: false }));
+      .then(() => {
+        this.setState({ loading: false });
+        this.chart.current.chart.hideLoading();
+      });
   }
   componentDidMount() {
     Highcharts.setOptions({
@@ -61,7 +66,7 @@ class InvADC extends React.Component {
 
   render() {
     return (
-      <HighchartsReact highcharts={Highcharts} options={this.state.options} />
+      <HighchartsReact highcharts={Highcharts} options={this.state.options} ref={this.chart} />
     );
   }
 }
