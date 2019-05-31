@@ -92,3 +92,5 @@ export const ampGraphOptions = {
     }
   ]
 };
+
+export const ampGraphUrl = "http://rockjock.io:3050/api/stats/amps/";

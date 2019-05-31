@@ -103,3 +103,5 @@ export const wattsGraphOptions = {
     }
   ]
 };
+
+export const wattsGraphUrl = "http://rockjock.io:3050/api/stats/watts/";

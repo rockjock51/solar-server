@@ -104,3 +104,5 @@ export const socGraphOptions = {
     }
   ]
 };
+
+export const socGraphUrl = "http://rockjock.io:3050/api/stats/soc/";

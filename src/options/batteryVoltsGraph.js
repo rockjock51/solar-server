@@ -105,3 +105,5 @@ export const batteryVoltsGraphOptions = {
     }
   ]
 };
+
+export const  batteryVoltsGraphUrl = "http://rockjock.io:3050/api/stats/batteryvolts/";

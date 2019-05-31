@@ -104,3 +104,5 @@ export const invAdcGraphOptions = {
     }
   ]
 };
+
+export const invAdcGraphUrl = "http://rockjock.io:3050/api/stats/INV_adc/";

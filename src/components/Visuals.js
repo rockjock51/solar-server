@@ -11,13 +11,15 @@ import {
 } from "@material-ui/core";
 import Slider from "@material-ui/lab/Slider";
 
-import Amps from "./graphs/Amps";
-import BatteryVolts from "./graphs/BatteryVolts";
-import InvADC from "./graphs/InvADC";
-import SoC from "./graphs/SoC";
-import SolarWatts from "./graphs/SolarWatts";
-import Watts from "./graphs/Watts";
-import OutbackPvVolts from "./graphs/OutbackPvVolts";
+import Graph from "./Graph";
+
+import {wattsGraphOptions, wattsGraphUrl} from "../options/wattsGraph";
+import {ampGraphOptions, ampGraphUrl} from "../options/ampGraph";
+import {batteryVoltsGraphOptions, batteryVoltsGraphUrl} from "../options/batteryVoltsGraph";
+import {invAdcGraphOptions, invAdcGraphUrl} from "../options/invAdcGraph";
+import {socGraphOptions, socGraphUrl} from "../options/socGraph";
+import {solarWattsGraphOptions, solarWattsGraphUrl} from "../options/solarWattsGraph";
+import {outbackPvVoltsGraphOptions, outbackPvVoltsGraphUrl} from "../options/outbackPvVolts";
 
 import "../css/Visuals.css";
 import "typeface-roboto";
@@ -44,38 +46,38 @@ class Visuals extends React.Component {
           <Grid container spacing={1}>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <Watts daysHistory={this.state.daysHistory} />
+                <Graph initialOptions={wattsGraphOptions} url={wattsGraphUrl} daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <SoC daysHistory={this.state.daysHistory} />
+                <Graph initialOptions={socGraphOptions} url={socGraphUrl} daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <Amps daysHistory={this.state.daysHistory} />
+                <Graph initialOptions={ampGraphOptions} url={ampGraphUrl} daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <BatteryVolts daysHistory={this.state.daysHistory} />
+                <Graph initialOptions={batteryVoltsGraphOptions} url={batteryVoltsGraphUrl} daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <InvADC daysHistory={this.state.daysHistory} />
+                <Graph initialOptions={invAdcGraphOptions} url={invAdcGraphUrl} daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <SolarWatts daysHistory={this.state.daysHistory} />
+                <Graph initialOptions={solarWattsGraphOptions} url={solarWattsGraphUrl} daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12} />
             <Grid item lg={4} xs={12}>
               <Paper style={{ height: "30em" }}>
-                <OutbackPvVolts daysHistory={this.state.daysHistory} />
+                <Graph initialOptions={outbackPvVoltsGraphOptions} url={outbackPvVoltsGraphUrl} daysHistory={this.state.daysHistory} />
               </Paper>
             </Grid>
             <Grid item lg={4} xs={12} />
@@ -102,13 +104,13 @@ class Visuals extends React.Component {
                 </CardContent>
                 <CardActions>
                   <Typography
-                    variant="h6"
+                    variant={"h6"}
                     display="block"
                     color="textSecondary"
                     gutterBottom
                     align="center"
                   >
-                    {this.state.value}
+                    {this.state.daysHistory}
                   </Typography>
                 </CardActions>
               </Card>

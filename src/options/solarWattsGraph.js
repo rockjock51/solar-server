@@ -108,3 +108,5 @@ export const solarWattsGraphOptions = {
     }
   ]
 };
+
+export const solarWattsGraphUrl = "http://rockjock.io:3050/api/stats/solarwatts/";

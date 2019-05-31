@@ -106,3 +106,5 @@ export const outbackPvVoltsGraphOptions = {
     }
   ]
 };
+
+export const outbackPvVoltsGraphUrl = "http://rockjock.io:3050/api/stats/outback_pv_volts/";
