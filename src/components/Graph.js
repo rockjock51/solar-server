@@ -22,7 +22,6 @@ class Graph extends React.Component {
     fetch(url)
       .then(response => response.json())
       .then(newData => {
-        console.log(newData + this.props.url);
         this.setState(prevState => ({
           options: {
             ...prevState.options,
@@ -54,7 +53,6 @@ class Graph extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (!this.state.loading) {
       if (prevProps.daysHistory !== this.props.daysHistory) {
-        console.log("Updating!" + this.props.url);
         clearInterval(this.interval);
         this.handleDataRefresh();
         this.interval = setInterval(() => {
