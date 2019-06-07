@@ -24,7 +24,7 @@ exports[`should render Header correctly 1`] = `
       </WithStyles(ForwardRef(Typography))>
     </WithStyles(ForwardRef(Toolbar))>
   </WithStyles(ForwardRef(AppBar))>
-  <WithStyles(ForwardRef(Drawer))
+  <WithTheme(ForwardRef(SwipeableDrawer))
     anchor="left"
     className="makeStyles-drawer-6"
     classes={
@@ -32,8 +32,9 @@ exports[`should render Header correctly 1`] = `
         "paper": "makeStyles-drawerPaper-7",
       }
     }
+    onClose={[Function]}
+    onOpen={[Function]}
     open={false}
-    variant="persistent"
   >
     <div
       className="makeStyles-drawerHeader-8"
@@ -127,6 +128,6 @@ exports[`should render Header correctly 1`] = `
         />
       </WithStyles(ForwardRef(ListItem))>
     </WithStyles(ForwardRef(List))>
-  </WithStyles(ForwardRef(Drawer))>
+  </WithTheme(ForwardRef(SwipeableDrawer))>
 </div>
 `;

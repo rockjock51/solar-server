@@ -3,5 +3,6 @@
 exports[`should render App correctly 1`] = `
 <div>
   <Header />
+  <Visuals />
 </div>
 `;
