@@ -6,7 +6,6 @@ class Graph extends React.Component {
   constructor(props) {
     super(props);
     this.chart = React.createRef();
-    this.interval = null;
 
     this.state = {
       options: this.props.initialOptions,
@@ -45,19 +44,12 @@ class Graph extends React.Component {
       }
     });
     this.handleDataRefresh();
-    this.interval = setInterval(() => {
-      this.handleDataRefresh();
-    }, 30000);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!this.state.loading) {
       if (prevProps.daysHistory !== this.props.daysHistory) {
-        clearInterval(this.interval);
         this.handleDataRefresh();
-        this.interval = setInterval(() => {
-          this.handleDataRefresh();
-        }, 30000);
       }
     }
   }

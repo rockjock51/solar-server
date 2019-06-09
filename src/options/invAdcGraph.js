@@ -12,6 +12,20 @@ export const invAdcGraphOptions = {
     animation: false,
     zoomType: "x"
   },
+  rangeSelector: {
+    buttons: [{
+        type: 'day',
+        count: 3,
+        text: '3d'
+    }, {
+        type: 'week',
+        count: 1,
+        text: '1w'
+    },{
+        type: 'all',
+        text: 'All'
+    }],
+},
   title: {
     text: "Moville Amps DC"
   },

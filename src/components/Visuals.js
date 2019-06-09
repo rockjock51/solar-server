@@ -29,7 +29,7 @@ class Visuals extends React.Component {
     super(props);
 
     this.state = {
-      daysHistory: 2
+      daysHistory: 14
     };
   }
 
@@ -97,7 +97,7 @@ class Visuals extends React.Component {
                     className={"slider"}
                     value={this.state.daysHistory}
                     min={1}
-                    max={7}
+                    max={31}
                     step={1}
                     onChange={this.handleSliderChange.bind(this)}
                   />
