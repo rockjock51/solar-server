@@ -6,7 +6,7 @@ const assert = require("assert");
 const uri = "mongodb://127.0.0.1:27017/test?retryWrites=true";
 const app = express();
 const port = process.env.PORT || 3050;
-const MAXHISTORY = 7;
+const MAXHISTORY = 31;
 
 let mongodb;
 
