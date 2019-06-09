@@ -15,18 +15,18 @@ export const wattsGraphOptions = {
   title: {
     text: "Watts"
   },
-  tooltip: {
-    formatter: function() {
-      return (
-        "Date: " +
-        Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
-        "<br />Volts: " +
-        this.point.Volts +
-        "<br />Amps: " +
-        this.point.Amps
-      );
-    }
-  },
+  // tooltip: {
+  //   formatter: function() {
+  //     return (
+  //       "Date: " +
+  //       Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
+  //       "<br />Volts: " +
+  //       this.point.Volts +
+  //       "<br />Amps: " +
+  //       this.point.Amps
+  //     );
+  //   }
+  // },
   subtitle: {
     text:
       document.ontouchstart === undefined

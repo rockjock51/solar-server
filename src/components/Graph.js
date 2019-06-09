@@ -1,5 +1,5 @@
 import React from "react";
-import Highcharts from "highcharts";
+import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 
 class Graph extends React.Component {
@@ -64,7 +64,7 @@ class Graph extends React.Component {
 
   render() {
     return (
-      <HighchartsReact highcharts={Highcharts} options={this.state.options} ref={this.chart} />
+      <HighchartsReact highcharts={Highcharts} options={this.state.options} constructorType={'stockChart'} ref={this.chart} />
     );
   }
 }

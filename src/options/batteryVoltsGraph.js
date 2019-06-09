@@ -14,20 +14,20 @@ export const batteryVoltsGraphOptions = {
   title: {
     text: "Battery Volts"
   },
-  tooltip: {
-    formatter: function() {
-      return (
-        "Date: " +
-        Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
-        "<br />Volts: " +
-        this.point.Volts +
-        "<br />Amps: " +
-        this.point.Amps +
-        "<br />Solar Charger Status: " +
-        this.point.Solar_Charger_Status
-      );
-    }
-  },
+  // tooltip: {
+  //   formatter: function() {
+  //     return (
+  //       "Date: " +
+  //       Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
+  //       "<br />Volts: " +
+  //       this.point.Volts +
+  //       "<br />Amps: " +
+  //       this.point.Amps +
+  //       "<br />Solar Charger Status: " +
+  //       this.point.Solar_Charger_Status
+  //     );
+  //   }
+  // },
   subtitle: {
     text:
       document.ontouchstart === undefined

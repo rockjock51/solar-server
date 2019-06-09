@@ -15,18 +15,18 @@ export const socGraphOptions = {
   title: {
     text: "State of Charge"
   },
-  tooltip: {
-    formatter: function() {
-      return (
-        "Date: " +
-        Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
-        "<br />SoC: " +
-        this.point.y +
-        "<br />Volts: " +
-        this.point.Volts
-      );
-    }
-  },
+  // tooltip: {
+  //   formatter: function() {
+  //     return (
+  //       "Date: " +
+  //       Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
+  //       "<br />SoC: " +
+  //       this.point.y +
+  //       "<br />Volts: " +
+  //       this.point.Volts
+  //     );
+  //   }
+  // },
   subtitle: {
     text:
       document.ontouchstart === undefined

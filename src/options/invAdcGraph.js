@@ -15,18 +15,18 @@ export const invAdcGraphOptions = {
   title: {
     text: "Moville Amps DC"
   },
-  tooltip: {
-    formatter: function() {
-      return (
-        "Date: " +
-        Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
-        "<br />INV_adc: " +
-        this.point.INV_adc +
-        "<br />Solar Panel Current: " +
-        this.point.PV_Current
-      );
-    }
-  },
+  // tooltip: {
+  //   formatter: function() {
+  //     return (
+  //       "Date: " +
+  //       Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
+  //       "<br />INV_adc: " +
+  //       this.point.INV_adc +
+  //       "<br />Solar Panel Current: " +
+  //       this.point.PV_Current
+  //     );
+  //   }
+  // },
   subtitle: {
     text:
       document.ontouchstart === undefined

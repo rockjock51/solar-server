@@ -15,22 +15,22 @@ export const solarWattsGraphOptions = {
   title: {
     text: "Solar Panel Watts"
   },
-  tooltip: {
-    formatter: function() {
-      return (
-        "Date: " +
-        Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
-        "<br />Solar Panel Volts: " +
-        this.point.Volts +
-        "<br />Solar Panel Amps: " +
-        this.point.Amps +
-        "<br />Solar Charger Watts: " +
-        this.point.SolarWatts +
-        "<br />Solar Charger Status: " +
-        this.point.Solar_Charger_Status
-      );
-    }
-  },
+  // tooltip: {
+  //   formatter: function() {
+  //     return (
+  //       "Date: " +
+  //       Highcharts.dateFormat("%b %e %Y %H:%M:%S ", new Date(this.x)) +
+  //       "<br />Solar Panel Volts: " +
+  //       this.point.Volts +
+  //       "<br />Solar Panel Amps: " +
+  //       this.point.Amps +
+  //       "<br />Solar Charger Watts: " +
+  //       this.point.SolarWatts +
+  //       "<br />Solar Charger Status: " +
+  //       this.point.Solar_Charger_Status
+  //     );
+  //   }
+  // },
   subtitle: {
     text:
       document.ontouchstart === undefined
